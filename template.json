@@ -1,6 +1,6 @@
 {
   "Actor": {
-    "types": ["character"],
+    "types": ["PC", "NPC"],
     "templates": {
       "base": {
         "health": {
@@ -15,7 +15,7 @@
         }
       }
     },
-    "character": {
+    "PC": {
       "templates": ["base"],
       "biography": "",
       "attributes": {
@@ -43,19 +43,81 @@
           "value": 10
         }
       }
-    }
-  },
+    },
+    "NPC": {
+      "templates": ["base"],
+      "biography": "",
+      "attributes": {
+        "level": {
+          "value": 1
+        }
+      },
+      "abilities": {
+        "str": {
+          "value": 10
+        },
+        "dex": {
+          "value": 10
+        },
+        "con": {
+          "value": 10
+        },
+        "int": {
+          "value": 10
+        },
+        "wis": {
+          "value": 10
+        },
+        "cha": {
+          "value": 10
+        }
+      }
+    }  },
   "Item": {
-    "types": ["item"],
+    "types": ["credential","investigativeAbility","generalAbility", "gear", "extra"],
     "templates": {
       "base": {
-        "description": ""
+        "description": "",
+        "subgroup": ""
+      },
+      "ability": {
+        "rating": 0,
+        "pool": 0,
+        "min": 0,
+        "max": 100,
+        "boostable": false,
+        "boosted": false
       }
     },
-    "item": {
+    "credential": {
+      "templates": ["base"]
+    },
+    "investigativeAbility": {
+      "templates": ["base", "ability"]
+    },
+    "generalAbility": {
+      "templates": ["base", "ability"],
+      "ablative": false
+    },
+    "gear": {
       "templates": ["base"],
+      "tags": [],
       "quantity": 1,
       "weight": 0
+    },
+    "extra": {
+      "templates": ["base"],
+      "ratable": false,
+      "rating": 0,
+      "checkable": false,
+      "checked": false,
+      "poolable": false,
+      "poolCap": 0,
+      "poolSpent": 0,
+      "detailable": false,
+      "detail": "",
+      "upkeepable": false,
+      "upkeep": 0
     }
   }
 }
