@@ -10,7 +10,29 @@
   "esmodules": ["module/gumshoe.js"],
   "styles": ["css/gumshoe.css"],
   "scripts": [],
-  "packs": [],
+  "packs": [
+    {
+      "name": "credentials",
+      "label": "Character Credentials",
+      "system": "gumshoe",
+      "path": "./packs/credentials.db",
+      "entity": "Item"
+    },
+    {
+      "name": "investigativeAbilities-srd",
+      "label": "Investigative Abilities - SRD",
+      "system": "gumshoe",
+      "path": "./packs/investigativeAbilities-srd.db",
+      "entity": "Item"
+    },
+    {
+      "name": "generalAbilities-srd",
+      "label": "General Abilities - SRD",
+      "system": "gumshoe",
+      "path": "./packs/generalAbilities-srd.db",
+      "entity": "Item"
+    }
+  ],
   "languages": [
     {
       "lang": "en",
@@ -20,8 +42,8 @@
   ],
   "gridDistance": 5,
   "gridUnits": "ft",
-  "primaryTokenAttribute": "health",
-  "secondaryTokenAttribute": "power",
+  "primaryTokenAttribute": "computed.primaryTokenAttribute",
+  "secondaryTokenAttribute": "computed.secondaryTokenAttribute",
   "url": "",
   "manifest": "",
   "download": "",

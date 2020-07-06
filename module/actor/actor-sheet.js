@@ -1,14 +1,10 @@
-/**
- * Extend the basic ActorSheet with some very simple modifications
- * @extends {ActorSheet}
- */
+
 export class GumshoeActorSheet extends ActorSheet {
 
   /** @override */
   static get defaultOptions() {
     return mergeObject(super.defaultOptions, {
       classes: ["gumshoe", "sheet", "actor"],
-      template: "systems/gumshoe/templates/actor/actor-sheet.html",
       width: 600,
       height: 600,
       tabs: [{ navSelector: ".sheet-tabs", contentSelector: ".sheet-body", initial: "description" }]
@@ -16,14 +12,16 @@ export class GumshoeActorSheet extends ActorSheet {
   }
 
   /* -------------------------------------------- */
+  /** @override */
+  get template() {
+    const path = "systems/gumshoe/templates/actor";
+    return `${path}/${this.actor.data.type}-sheet.html`;
+  }
 
   /** @override */
   getData() {
     const data = super.getData();
-    data.dtypes = ["String", "Number", "Boolean"];
-    for (let attr of Object.values(data.data.attributes)) {
-      attr.isCheckbox = attr.dtype === "Boolean";
-    }
+
     return data;
   }
 

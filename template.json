@@ -3,82 +3,30 @@
     "types": ["PC", "NPC"],
     "templates": {
       "base": {
-        "health": {
-          "value": 10,
-          "min": 0,
-          "max": 10
-        },
-        "power": {
-          "value": 5,
-          "min": 0,
-          "max": 5
-        }
+        "hitThreshold": 3,
+        "armor": 0
       }
     },
     "PC": {
       "templates": ["base"],
       "biography": "",
-      "attributes": {
-        "level": {
-          "value": 1
-        }
-      },
-      "abilities": {
-        "str": {
-          "value": 10
-        },
-        "dex": {
-          "value": 10
-        },
-        "con": {
-          "value": 10
-        },
-        "int": {
-          "value": 10
-        },
-        "wis": {
-          "value": 10
-        },
-        "cha": {
-          "value": 10
-        }
-      }
+      "generalPoints": 0,
+      "investigativePoints": 0
     },
     "NPC": {
       "templates": ["base"],
-      "biography": "",
-      "attributes": {
-        "level": {
-          "value": 1
-        }
-      },
-      "abilities": {
-        "str": {
-          "value": 10
-        },
-        "dex": {
-          "value": 10
-        },
-        "con": {
-          "value": 10
-        },
-        "int": {
-          "value": 10
-        },
-        "wis": {
-          "value": 10
-        },
-        "cha": {
-          "value": 10
-        }
-      }
-    }  },
+      "biography": ""
+    }
+  },
   "Item": {
-    "types": ["credential","investigativeAbility","generalAbility", "gear", "extra"],
+    "types": ["credential", "investigativeAbility", "generalAbility", "gear", "weapon", "extra"],
     "templates": {
       "base": {
         "description": "",
         "subgroup": ""
+      },
+      "fixedOrder": {
+        "sortOrder": 0
       },
       "ability": {
         "rating": 0,
@@ -90,30 +38,47 @@
       }
     },
     "credential": {
-      "templates": ["base"]
+      "templates": ["base", "fixedOrder"]
     },
     "investigativeAbility": {
-      "templates": ["base", "ability"]
+      "templates": ["base", "ability", "fixedOrder"]
     },
     "generalAbility": {
-      "templates": ["base", "ability"],
-      "ablative": false
+      "templates": ["base", "ability", "fixedOrder"],
+      "booster": "",
+      "boosterThreshold": 8,
+      "ablative": false,
+      "primaryTracked": false,
+      "secondaryTracked": false
     },
     "gear": {
       "templates": ["base"],
       "tags": [],
+      "quantity": 1
+    },
+    "weapon": {
+      "templates": ["base"],
+      "tags": [],
       "quantity": 1,
-      "weight": 0
+      "autofires": false,
+      "stuns": false,
+      "damage": "",
+      "pointBlank": "",
+      "close": "",
+      "near": "",
+      "long": ""
     },
     "extra": {
       "templates": ["base"],
+      "fielded": false,
+      "fieldNames": [],
+      "fieldValues": [],
       "ratable": false,
       "rating": 0,
       "checkable": false,
       "checked": false,
       "poolable": false,
-      "poolCap": 0,
-      "poolSpent": 0,
+      "pool": 0,
       "detailable": false,
       "detail": "",
       "upkeepable": false,

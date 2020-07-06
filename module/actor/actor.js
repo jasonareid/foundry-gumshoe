@@ -22,18 +22,10 @@ export class GumshoeActor extends Actor {
 
   _preparePCData(actorData) {
     const data = actorData.data;
-    for (let [key, ability] of Object.entries(data.abilities)) {
-      // Calculate the modifier using d20 rules.
-      ability.mod = Math.floor((ability.value - 10) / 2);
-    }
   }
 
   _prepareNPCData(actorData) {
     const data = actorData.data;
-    for (let [key, ability] of Object.entries(data.abilities)) {
-      // Calculate the modifier using d20 rules.
-      ability.mod = Math.floor((ability.value - 10) / 2);
-    }
   }
 
 }
