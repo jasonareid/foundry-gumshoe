@@ -17,12 +17,12 @@ Hooks.once('init', async function() {
     hint: "Which Credentials apply in this game.",
     scope: "world",      // This specifies a world-level setting
     config: false,        // This specifies that the setting appears in the configuration view
-    type: Array,
-    default: [],         // The default value for the setting
+    type: Object,
+    default: {},         // The default value for the setting
   });
   game.settings.registerMenu("gumshoe", "menu-charsheet-credentials", {
     name: "Credentials Submenu",
-    label: "Credentials Submenu",      // The text label used in the button
+    label: "Character Sheet - Credentials",      // The text label used in the button
     hint: "Choose this games Credentials.",
     icon: "fas fa-bars",               // A Font Awesome icon used in the submenu button
     type: MenuCharsheetCredentials,   // A FormApplication subclass which should be created

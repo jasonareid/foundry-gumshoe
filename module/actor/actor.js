@@ -4,9 +4,15 @@
  */
 export class GumshoeActor extends Actor {
 
-  /**
-   * Augment the basic actor data with additional dynamic data.
-   */
+  static async create(data, options) {
+    let gsActor = await super.create(data, options);
+    if(gsActor.data.type === 'PC') {
+      // console.log("Do some PC stuff");
+    } else if(gsActor.data.type === 'NPC') {
+      // console.log("Do some NPC stuff");
+    }
+  }
+
   prepareData() {
     super.prepareData();
 

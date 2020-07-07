@@ -1,20 +1,20 @@
-.items-list {
+.items-list, .line-items-list {
   list-style: none;
   margin: 7px 0;
   padding: 0;
   overflow-y: auto;
 
-  .item-header {
+  .item-header, .line-item-header {
     font-weight: bold;
   }
 
-  .item {
+  .item, .line-item {
     height: 30px;
     line-height: 24px;
     padding: 3px 0;
     border-bottom: 1px solid #BBB;
 
-    .item-image {
+    .item-image, .line-item-image {
       flex: 0 0 24px;
       margin-right: 5px;
     }
@@ -24,11 +24,11 @@
     }
   }
 
-  .item-name, .item-type {
+  .item-name, .item-type, .line-item-datum {
     margin: 0;
   }
 
-  .item-controls {
+  .item-controls, .line-item-controls {
     flex: 0 0 86px;
     text-align: right;
   }

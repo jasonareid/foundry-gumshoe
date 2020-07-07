@@ -24,9 +24,7 @@
     "templates": {
       "base": {
         "description": "",
-        "subgroup": ""
-      },
-      "fixedOrder": {
+        "subgroup": "",
         "sortOrder": 0
       },
       "ability": {
@@ -39,14 +37,14 @@
       }
     },
     "credential": {
-      "templates": ["base", "fixedOrder"],
+      "templates": ["base"],
       "value": ""
     },
     "investigativeAbility": {
-      "templates": ["base", "ability", "fixedOrder"]
+      "templates": ["base", "ability"]
     },
     "generalAbility": {
-      "templates": ["base", "ability", "fixedOrder"],
+      "templates": ["base", "ability"],
       "booster": "",
       "boosterThreshold": 8,
       "ablative": false,
