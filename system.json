@@ -12,10 +12,10 @@
   "scripts": [],
   "packs": [
     {
-      "name": "credentials",
-      "label": "Character Credentials",
+      "name": "credentials-default",
+      "label": "Credentials - Default",
       "system": "gumshoe",
-      "path": "./packs/credentials.db",
+      "path": "./packs/credentials-default.db",
       "entity": "Item"
     },
     {

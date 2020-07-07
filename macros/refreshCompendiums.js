@@ -8,7 +8,7 @@
             await actor.deleteOwnedItem(item._id);
         }
     }
-    const compendiums = ['credentials', 'investigativeAbilities-srd', 'generalAbilities-srd'];
+    const compendiums = ['credentials-default', 'investigativeAbilities-srd', 'generalAbilities-srd'];
     for(let i = 0; i < compendiums.length; i++) {
         const kind = compendiums[i];
         const folder = await Folder.create({type: "Item", parent: null, name: (kind[0].toUpperCase() + kind.slice(1))})
