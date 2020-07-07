@@ -11,7 +11,8 @@
       "templates": ["base"],
       "biography": "",
       "generalPoints": 0,
-      "investigativePoints": 0
+      "investigativePoints": 0,
+      "buildPoints": 0
     },
     "NPC": {
       "templates": ["base"],
@@ -38,7 +39,8 @@
       }
     },
     "credential": {
-      "templates": ["base", "fixedOrder"]
+      "templates": ["base", "fixedOrder"],
+      "value": ""
     },
     "investigativeAbility": {
       "templates": ["base", "ability", "fixedOrder"]
@@ -70,6 +72,7 @@
     },
     "extra": {
       "templates": ["base"],
+      "value": "",
       "fielded": false,
       "fieldNames": [],
       "fieldValues": [],
