@@ -13,10 +13,22 @@ export class MenuCharsheetCredentials extends FormApplication {
     getData() {
         let data = {};
         data.setting = game.settings.get('gumshoe', 'charsheet-credentials');
+        if(!data.setting || typeof data.setting !== 'object' || Array.isArray(data.setting)) {
+            data.setting = {};
+        }
         if(!data.setting.entries) {
             data.setting.entries = [];
         }
         return data;
+    }
+
+    existingContentEntries() {
+        let contentEntries = {};
+        let entries = this.getData().setting.entries;
+        for(let i = 0; i < entries.length; i++) {
+            contentEntries[entries[i].item._id] = true;
+        }
+        return contentEntries;
     }
 
     activateListeners(doc) {
@@ -64,6 +76,10 @@ export class MenuCharsheetCredentials extends FormApplication {
                 let html = `<select class="compendium-item-select">
                                 <option value="">Choose credential...</option>`;
 
+                let existingEntries = this.existingContentEntries();
+                items = items.filter(item =>
+                    !existingEntries.hasOwnProperty(item._id)
+                )
                 for(let i = 0; i < items.length; i++) {
                     let item = items[i];
                     html +=
@@ -75,21 +91,31 @@ export class MenuCharsheetCredentials extends FormApplication {
             }
         });
 
+        doc.on('click', '.credential-delete', async (ev) => {
+            let $credLine = $(ev.currentTarget).closest('.credential');
+            if($credLine.hasClass('credential-add')) {
+                $credLine.remove();
+            } else {
+                let id = $credLine.data('credentialId');
+                let data = this.getData();
+                let setting = data.setting;
+                setting.entries = [].concat(setting.entries.filter(entry => entry._id !== id));
+                await game.settings.set('gumshoe', 'charsheet-credentials', setting);
+                setTimeout(() => {
+                    this.render(true);
+                }, 1);
+            }
+        });
+
         doc.on('click', '.credential-save', async (ev) => {
             let $saveLine = $(ev.currentTarget).closest('.credential');
             let id = $saveLine.data('credentialId');
-            console.log("Saving");
             let sourceId = $saveLine.find('.compendium-select').val();
-            console.log(sourceId);
             if(!sourceId) return;
             let sourceName = $saveLine.find('.compendium-select').find('option:selected').text();
-            console.log(sourceName);
             let itemId = $saveLine.find('.compendium-item-select').val();
-            console.log(itemId);
             if(!itemId) return;
             let itemName = $saveLine.find('.compendium-item-select').find('option:selected').text();
-            console.log(itemName);
-            console.log(id);
             let credentialRef = {
                 _id: id,
                 type: 'credentialRef',
@@ -109,7 +135,6 @@ export class MenuCharsheetCredentials extends FormApplication {
             setTimeout(() => {
                 this.render(true);
             }, 1);
-            console.log("done saving");
         });
 
     }
