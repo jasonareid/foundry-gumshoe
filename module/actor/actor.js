@@ -22,6 +22,19 @@ export class GumshoeActor extends Actor {
           gsActor.createOwnedItem(item.data);
         }
       }
+      let ias = SystemExpression.investigativeAbilities;
+      for(let i = 0; i < ias.entries.length; i++) {
+        let entry = ias.entries[i];
+        if(entry.type === 'investigativeAbilityRef') {
+          let compendium = game.packs.get(entry.source._id);
+          console.log(entry);
+          let item = await compendium.getEntity(entry.item._id);
+          console.log(item);
+          delete item.data._id;
+          item.data.data.sortOrder = i;
+          gsActor.createOwnedItem(item.data);
+        }
+      }
       // console.log("Do some PC stuff");
     } else if(gsActor.data.type === 'NPC') {
       // console.log("Do some NPC stuff");
@@ -45,6 +58,7 @@ export class GumshoeActor extends Actor {
     const data = actorData.data;
     data.computed = {};
     data.computed.credentials = this._credentials();
+    data.computed.investigativeAbilities = this._investigativeAbilities();
   }
 
   _prepareNPCData(actorData) {
@@ -64,5 +78,20 @@ export class GumshoeActor extends Actor {
       return (c1.data.sortOrder || 0) - (c2.data.sortOrder || 0);
     })
     return credentials;
+  }
+  
+  _investigativeAbilities() {
+    const investigativeAbilities = [];
+    if(!this.items) return investigativeAbilities;
+    for(let i = 0; i < this.items.entries.length; i++) {
+      const item = this.items.entries[i];
+      if(item.data.type === 'investigativeAbility') {
+        investigativeAbilities.push(item.data);
+      }
+    }
+    investigativeAbilities.sort((a1, a2) => {
+      return (a1.data.sortOrder || 0) - (a2.data.sortOrder || 0);
+    })
+    return investigativeAbilities;
   }
 }
