@@ -24,7 +24,6 @@
     "templates": {
       "base": {
         "description": "",
-        "subgroup": "",
         "sortOrder": 0
       },
       "ability": {
@@ -41,7 +40,9 @@
       "value": ""
     },
     "investigativeAbility": {
-      "templates": ["base", "ability"]
+      "templates": ["base", "ability"],
+      "sampleSpends": "",
+      "sheetGroup": 0
     },
     "generalAbility": {
       "templates": ["base", "ability"],

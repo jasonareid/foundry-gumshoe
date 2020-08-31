@@ -1,3 +1,5 @@
+import {SystemExpression} from "../expression.js";
+
 export class MenuCharsheetCredentials extends FormApplication {
     /** @override */
     static get defaultOptions() {
@@ -12,13 +14,7 @@ export class MenuCharsheetCredentials extends FormApplication {
 
     getData() {
         let data = {};
-        data.setting = game.settings.get('gumshoe', 'charsheet-credentials');
-        if(!data.setting || typeof data.setting !== 'object' || Array.isArray(data.setting)) {
-            data.setting = {};
-        }
-        if(!data.setting.entries) {
-            data.setting.entries = [];
-        }
+        data.setting = SystemExpression.credentials;
         return data;
     }
 
@@ -46,7 +42,7 @@ export class MenuCharsheetCredentials extends FormApplication {
 
             for(let key of game.packs.keys()) {
                 let compendium = game.packs.get(key);
-                if(compendium.metadata.name.indexOf('credential') === 0) {
+                if(compendium.metadata.name.indexOf('credential') !== -1) {
                     html +=
                         `<option value=${key}>${compendium.metadata.name}</option>`;
                 }
@@ -98,9 +94,9 @@ export class MenuCharsheetCredentials extends FormApplication {
             } else {
                 let id = $credLine.data('credentialId');
                 let data = this.getData();
-                let setting = data.setting;
-                setting.entries = [].concat(setting.entries.filter(entry => entry._id !== id));
-                await game.settings.set('gumshoe', 'charsheet-credentials', setting);
+                let creds = data.setting;
+                creds.entries = [].concat(creds.entries.filter(entry => entry._id !== id));
+                await SystemExpression.updateCredentials(creds);
                 setTimeout(() => {
                     this.render(true);
                 }, 1);
@@ -129,9 +125,9 @@ export class MenuCharsheetCredentials extends FormApplication {
                 },
             }
             let data = this.getData();
-            let setting = data.setting;
-            setting.entries.push(credentialRef);
-            await game.settings.set('gumshoe', 'charsheet-credentials', setting);
+            let creds = data.setting;
+            creds.entries.push(credentialRef);
+            await SystemExpression.updateCredentials(creds);
             setTimeout(() => {
                 this.render(true);
             }, 1);
