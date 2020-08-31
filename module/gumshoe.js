@@ -4,6 +4,7 @@ import { GumshoeActorSheet } from "./actor/actor-sheet.js";
 import { GumshoeItem } from "./item/item.js";
 import { GumshoeItemSheet } from "./item/item-sheet.js";
 import {MenuCharsheetCredentials} from "./expression/settings/menuCharsheetCredentials.js";
+import {MenuCharsheetInvestigativeAbilities} from "./expression/settings/menuCharsheetInvestigativeAbilities.js";
 
 Hooks.once('init', async function() {
 
@@ -26,6 +27,22 @@ Hooks.once('init', async function() {
     hint: "Choose this games Credentials.",
     icon: "fas fa-bars",               // A Font Awesome icon used in the submenu button
     type: MenuCharsheetCredentials,   // A FormApplication subclass which should be created
+    restricted: true                   // Restrict this submenu to gamemaster only?
+  });
+  game.settings.register("gumshoe", "charsheet-investigative-abilities", {
+    name: "Investigative Abilities",
+    hint: "Which Investigative apply in this game.",
+    scope: "world",      // This specifies a world-level setting
+    config: false,        // This specifies that the setting appears in the configuration view
+    type: Object,
+    default: {},         // The default value for the setting
+  });
+  game.settings.registerMenu("gumshoe", "menu-charsheet-investigative-abilities", {
+    name: "Investigative Abilities Submenu",
+    label: "Character Sheet - Investigative Abilities",      // The text label used in the button
+    hint: "Choose this games Investigative Abilities.",
+    icon: "fas fa-bars",               // A Font Awesome icon used in the submenu button
+    type: MenuCharsheetInvestigativeAbilities,   // A FormApplication subclass which should be created
     restricted: true                   // Restrict this submenu to gamemaster only?
   });
   /**

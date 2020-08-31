@@ -13,4 +13,19 @@ export class SystemExpression {
     static async updateCredentials(creds) {
         await game.settings.set('gumshoe', 'charsheet-credentials', creds);
     }
+
+    static get investigativeAbilities() {
+        let abilities = game.settings.get('gumshoe', 'charsheet-investigative-abilities');
+        if(!abilities || typeof abilities !== 'object' || Array.isArray(abilities)) {
+            abilities = {};
+        }
+        if(!abilities.entries) {
+            abilities.entries = [];
+        }
+        return abilities;
+    }
+
+    static async updateInvestigativeAbilities(creds) {
+        await game.settings.set('gumshoe', 'charsheet-investigative-abilities', creds);
+    }
 }

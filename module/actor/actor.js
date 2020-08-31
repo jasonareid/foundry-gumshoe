@@ -43,10 +43,26 @@ export class GumshoeActor extends Actor {
 
   _preparePCData(actorData) {
     const data = actorData.data;
+    data.computed = {};
+    data.computed.credentials = this._credentials();
   }
 
   _prepareNPCData(actorData) {
     const data = actorData.data;
   }
 
+  _credentials() {
+    const credentials = [];
+    if(!this.items) return credentials;
+    for(let i = 0; i < this.items.entries.length; i++) {
+      const item = this.items.entries[i];
+      if(item.data.type === 'credential') {
+        credentials.push(item.data);
+      }
+    }
+    credentials.sort((c1, c2) => {
+      return (c1.data.sortOrder || 0) - (c2.data.sortOrder || 0);
+    })
+    return credentials;
+  }
 }

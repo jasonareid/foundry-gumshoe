@@ -16,11 +16,11 @@
           {{!-- The grid classes are defined in scss/global/_grid.scss. To use,
           use both the "grid" and "grid-Ncol" class where "N" can be any number
           from 1 to 12 and will create that number of columns.  --}}
-          <div class="abilities grid grid-3col">
-            {{#each data.abilities as |ability key|}}
-              <div class="ability flexrow flex-group-center">
-                <label for="data.abilities.{{key}}.value" class="resource-label">{{key}}</label>
-                <input type="text" name="data.abilities.{{key}}.value" value="{{ability.value}}" data-dtype="Number"/>
+          <div class="grid grid-1col">
+            {{#each data.computed.credentials as |credential idx|}}
+              <div class="flexrow flex-group-center">
+                <label class="resource-label">{{credential.name}}</label>
+                <input type="text" value="{{credential.data.value}}"/>
               </div>
             {{/each}}
           </div>
