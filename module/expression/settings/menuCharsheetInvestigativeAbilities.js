@@ -7,8 +7,8 @@ export class MenuCharsheetInvestigativeAbilities extends FormApplication {
             title: "Investigative Abilities",
             classes: ["gumshoe", "sheet", "investigative-abilities"],
             template: "systems/gumshoe/templates/settings/charsheet-investigative-abilities-sheet.html",
-            width: 500,
-            height: 400,
+            width: 720,
+            height: 480,
         });
     }
 
@@ -30,13 +30,13 @@ export class MenuCharsheetInvestigativeAbilities extends FormApplication {
     activateListeners(doc) {
         super.activateListeners(doc);
 
-        doc.find('.investigative-ability-add').on('click', () => {
-            let lastInvestigativeAbility = doc.find('.investigative-abilities-list').children().last();
-            if(lastInvestigativeAbility.hasClass('investigative-ability-add')) return;
+        doc.find('.ability-add').on('click', () => {
+            let lastInvestigativeAbility = doc.find('.abilities-list').children().last();
+            if(lastInvestigativeAbility.hasClass('ability-add')) return;
 
             let newAbilityId = randomID(24);
             let html =
-                `<li class="investigative-ability investigative-ability-add flexrow line-item" data-investigative-ability-id="${newAbilityId}">
+                `<li class="ability ability-add flexrow line-item" data-ability-id="${newAbilityId}">
                     <select class="compendium-select">
                         <option value="">Choose compendium...</option>`;
 
@@ -49,10 +49,11 @@ export class MenuCharsheetInvestigativeAbilities extends FormApplication {
             }
 
             html += `</select>
-                    <h4 class="investigative-ability-name placeholder line-item-datum"></h4>
+                    <h4 class="ability-name placeholder line-item-datum"></h4>
+                    <h4 class="ability-group placeholder line-item-datum"></h4>
                     <div class="line-item-controls">
-                        <a class="investigative-ability-save" title="Save Investigative Ability"><i class="fas fa-check"></i></a>
-                        <a class="investigative-ability-delete" title="Delete Investigative Ability"><i class="fas fa-trash"></i></a>
+                        <a class="ability-save" title="Save Investigative Ability"><i class="fas fa-check"></i></a>
+                        <a class="ability-delete" title="Delete Investigative Ability"><i class="fas fa-trash"></i></a>
                     </div>
                 </li>`
 
@@ -65,8 +66,10 @@ export class MenuCharsheetInvestigativeAbilities extends FormApplication {
             let $compendiumSelect = $(ev.currentTarget);
             let compendiumId = $compendiumSelect.val();
             if(compendiumId === '') {
-                let html = `<h4 class="investigative-ability-name placeholder line-item-datum"></h4>`;
-                $compendiumSelect.closest('.investigative-ability-add').find('.compendium-item-select').replaceWith(html);
+                let html = `<h4 class="ability-name placeholder line-item-datum"></h4>`;
+                $compendiumSelect.closest('.ability-add').find('.compendium-item-select').replaceWith(html);
+                html = `<h4 class="ability-group placeholder line-item-datum"></h4>`;
+                $compendiumSelect.closest('.ability-add').find('.group-text-entry').replaceWith(html);
             } else {
                 let items = await game.packs.get(compendiumId).getContent();
                 let html = `<select class="compendium-item-select">
@@ -83,16 +86,37 @@ export class MenuCharsheetInvestigativeAbilities extends FormApplication {
                 }
 
                 html += `</select>`;
-                $compendiumSelect.closest('.investigative-ability-add').find('.placeholder').replaceWith(html);
+                $compendiumSelect.closest('.ability-add').find('.ability-name.placeholder').replaceWith(html);
             }
         });
 
-        doc.on('click', '.investigative-ability-delete', async (ev) => {
-            let $abilityLine = $(ev.currentTarget).closest('.investigative-ability');
-            if($abilityLine.hasClass('investigative-ability-add')) {
+        doc.on('change', '.compendium-item-select', async (ev) => {
+            let $compendiumItemSelect = $(ev.currentTarget);
+            let compendiumItemId = $compendiumItemSelect.val();
+            if(compendiumItemId === '') {
+                let html = `<h4 class="ability-group placeholder line-item-datum"></h4>`;
+                $compendiumItemSelect.closest('.ability-add').find('.group-text-entry').replaceWith(html);
+            } else {
+                let items = SystemExpression.investigativeAbilityGroups.entries;
+                let html = `<select class="ability-group-select">
+                                <option value="">Choose group...</option>`;
+                for(let i = 0; i < items.length; i++) {
+                    let item = items[i];
+                    html +=
+                        `<option value=${item.group}>${item.group}</option>`;
+                }
+
+                html += `</select>`;
+                $compendiumItemSelect.closest('.ability-add').find('.ability-group.placeholder').replaceWith(html);
+            }
+        })
+
+        doc.on('click', '.ability-delete', async (ev) => {
+            let $abilityLine = $(ev.currentTarget).closest('.ability');
+            if($abilityLine.hasClass('ability-add')) {
                 $abilityLine.remove();
             } else {
-                let id = $abilityLine.data('investigativeAbilityId');
+                let id = $abilityLine.data('abilityId');
                 let data = this.getData();
                 let abilities = data.setting;
                 abilities.entries = [].concat(abilities.entries.filter(entry => entry._id !== id));
@@ -103,15 +127,17 @@ export class MenuCharsheetInvestigativeAbilities extends FormApplication {
             }
         });
 
-        doc.on('click', '.investigative-ability-save', async (ev) => {
-            let $saveLine = $(ev.currentTarget).closest('.investigative-ability');
-            let id = $saveLine.data('investigativeAbilityId');
+        doc.on('click', '.ability-save', async (ev) => {
+            let $saveLine = $(ev.currentTarget).closest('.ability');
+            let id = $saveLine.data('abilityId');
             let sourceId = $saveLine.find('.compendium-select').val();
             if(!sourceId) return;
             let sourceName = $saveLine.find('.compendium-select').find('option:selected').text();
             let itemId = $saveLine.find('.compendium-item-select').val();
             if(!itemId) return;
             let itemName = $saveLine.find('.compendium-item-select').find('option:selected').text();
+            let group = $saveLine.find('.ability-group-select').val();
+            if(!group) return;
             let investigativeAbilityRef = {
                 _id: id,
                 type: 'investigativeAbilityRef',
@@ -123,6 +149,7 @@ export class MenuCharsheetInvestigativeAbilities extends FormApplication {
                     _id: itemId,
                     name: itemName,
                 },
+                group: group,
             }
             let data = this.getData();
             let abilities = data.setting;

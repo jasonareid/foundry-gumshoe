@@ -7,8 +7,8 @@ export class MenuCharsheetCredentials extends FormApplication {
             title: "Credentials",
             classes: ["gumshoe", "sheet", "credentials"],
             template: "systems/gumshoe/templates/settings/charsheet-credentials-sheet.html",
-            width: 500,
-            height: 400,
+            width: 640,
+            height: 480,
         });
     }
 

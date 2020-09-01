@@ -4,20 +4,24 @@
  */
 import {SystemExpression} from "../expression/expression.js";
 
+async function clonePackedItem(packId, itemId) {
+  let compendium = game.packs.get(packId);
+  let item = await compendium.getEntity(itemId);
+  delete item.data._id;
+  return item;
+}
+
 export class GumshoeActor extends Actor {
 
   static async create(data, options) {
     let gsActor = await super.create(data, options);
+
     if(gsActor.data.type === 'PC') {
       let creds = SystemExpression.credentials;
       for(let i = 0; i < creds.entries.length; i++) {
         let entry = creds.entries[i];
         if(entry.type === 'credentialRef') {
-          let compendium = game.packs.get(entry.source._id);
-          console.log(entry);
-          let item = await compendium.getEntity(entry.item._id);
-          console.log(item);
-          delete item.data._id;
+          let item = await clonePackedItem(entry.source._id, entry.item._id);
           item.data.data.sortOrder = i;
           gsActor.createOwnedItem(item.data);
         }
@@ -26,12 +30,9 @@ export class GumshoeActor extends Actor {
       for(let i = 0; i < ias.entries.length; i++) {
         let entry = ias.entries[i];
         if(entry.type === 'investigativeAbilityRef') {
-          let compendium = game.packs.get(entry.source._id);
-          console.log(entry);
-          let item = await compendium.getEntity(entry.item._id);
-          console.log(item);
-          delete item.data._id;
+          let item = await clonePackedItem(entry.source._id, entry.item._id);
           item.data.data.sortOrder = i;
+          item.data.data.group = entry.group;
           gsActor.createOwnedItem(item.data);
         }
       }

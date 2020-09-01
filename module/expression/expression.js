@@ -14,6 +14,21 @@ export class SystemExpression {
         await game.settings.set('gumshoe', 'charsheet-credentials', creds);
     }
 
+    static get investigativeAbilityGroups() {
+        let groups = game.settings.get('gumshoe', 'charsheet-investigative-ability-groups');
+        if(!groups || typeof groups !== 'object' || Array.isArray(groups)) {
+            groups = {};
+        }
+        if(!groups.entries) {
+            groups.entries = [];
+        }
+        return groups;
+    }
+
+    static async updateInvestigativeAbilityGroups(groups) {
+        await game.settings.set('gumshoe', 'charsheet-investigative-ability-groups', groups);
+    }
+
     static get investigativeAbilities() {
         let abilities = game.settings.get('gumshoe', 'charsheet-investigative-abilities');
         if(!abilities || typeof abilities !== 'object' || Array.isArray(abilities)) {
@@ -25,7 +40,7 @@ export class SystemExpression {
         return abilities;
     }
 
-    static async updateInvestigativeAbilities(creds) {
-        await game.settings.set('gumshoe', 'charsheet-investigative-abilities', creds);
+    static async updateInvestigativeAbilities(abilities) {
+        await game.settings.set('gumshoe', 'charsheet-investigative-abilities', abilities);
     }
 }

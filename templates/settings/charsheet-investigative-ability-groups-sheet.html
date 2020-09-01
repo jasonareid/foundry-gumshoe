@@ -1,0 +1,25 @@
+<form class="{{cssClass}}" autocomplete="off">
+    <header class="sheet-header">
+        <div class="header-fields">
+            <h1 class="charname">Investigative Ability Groups</h1>
+        </div>
+    </header>
+    <div class="abilities" data-group="primary" data-tab="abilities">
+        <ol class="abilities-list line-items-list">
+            <li class="group flexrow line-item-header">
+                <div class="group-name">Name</div>
+                <div class="line-item-controls">
+                    <a class="group-control group-add" title="Add Group" data-type="group"><i class="fas fa-plus"></i> Add</a>
+                </div>
+            </li>
+            {{#each setting.entries as |group index|}}
+            <li class="group flexrow line-item" data-group-id="{{group._id}}">
+                <h4 class="group-name line-item-datum">{{group.group}}</h4>
+                <div class="line-item-controls">
+                    <a class="group-delete" title="Delete Group"><i class="fas fa-trash"></i></a>
+                </div>
+            </li>
+            {{/each}}
+        </ol>
+    </div>
+</form>

@@ -4,21 +4,23 @@
             <h1 class="charname">Investigative Abilities</h1>
         </div>
     </header>
-    <div class="investigative-abilities" data-group="primary" data-tab="investigative-abilities">
-        <ol class="investigative-abilities-list line-items-list">
-            <li class="investigative-ability flexrow line-item-header">
-                <div class="investigative-ability-source">Source</div>
-                <div class="investigative-ability-name">Name</div>
+    <div class="abilities" data-group="primary" data-tab="abilities">
+        <ol class="abilities-list line-items-list">
+            <li class="ability flexrow line-item-header">
+                <div class="ability-source">Source</div>
+                <div class="ability-name">Name</div>
+                <div class="ability-group">Group</div>
                 <div class="line-item-controls">
-                    <a class="investigative-ability-control investigative-ability-add" title="Add Investigative Ability" data-type="investigative-ability"><i class="fas fa-plus"></i> Add</a>
+                    <a class="ability-control ability-add" title="Add Ability" data-type="ability"><i class="fas fa-plus"></i> Add</a>
                 </div>
             </li>
-            {{#each setting.entries as |investigativeAbility index|}}
-            <li class="investigative-ability flexrow line-item" data-investigative-ability-id="{{investigativeAbility._id}}">
-                <h4 class="investigative-ability-source line-item-datum">{{investigativeAbility.source.name}}</h4>
-                <h4 class="investigative-ability-name line-item-datum">{{investigativeAbility.item.name}}</h4>
+            {{#each setting.entries as |ability index|}}
+            <li class="ability flexrow line-item" data-ability-id="{{ability._id}}">
+                <h4 class="ability-source line-item-datum">{{ability.source.name}}</h4>
+                <h4 class="ability-name line-item-datum">{{ability.item.name}}</h4>
+                <h4 class="ability-group line-item-datum">{{ability.group}}</h4>
                 <div class="line-item-controls">
-                    <a class="investigative-ability-delete" title="Delete Investigative Ability"><i class="fas fa-trash"></i></a>
+                    <a class="ability-delete" title="Delete Ability"><i class="fas fa-trash"></i></a>
                 </div>
             </li>
             {{/each}}
