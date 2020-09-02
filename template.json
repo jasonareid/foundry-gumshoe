@@ -38,6 +38,7 @@
     },
     "credential": {
       "templates": ["base"],
+      "credType": "text",
       "value": ""
     },
     "investigativeAbility": {
