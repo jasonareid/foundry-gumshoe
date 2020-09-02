@@ -121,8 +121,8 @@
 
 .gumshoe .sheet-header {
   -webkit-box-flex: 0;
-  -ms-flex: 0 0 210px;
-  flex: 0 0 210px;
+  -ms-flex: 0 0 100px;
+  flex: 0 0 100px;
   overflow: hidden;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -215,11 +215,13 @@
   height: 40px;
   border-top: 1px solid #AAA;
   border-bottom: 1px solid #AAA;
+  justify-content: space-around;
 }
 
 .gumshoe .tabs .item {
   line-height: 40px;
   font-weight: bold;
+  flex: inherit;
 }
 
 .gumshoe .tabs .item.active {

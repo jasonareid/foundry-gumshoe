@@ -5,44 +5,69 @@
         <img class="profile-img" src="{{actor.img}}" data-edit="img" title="{{actor.name}}" height="100" width="100"/>
         <div class="header-fields">
             <h1 class="charname"><input name="name" type="text" value="{{actor.name}}" placeholder="Name"/></h1>
-            {{!-- The grid classes are defined in scss/global/_grid.scss. To use,
-            use both the "grid" and "grid-Ncol" class where "N" can be any number
-            from 1 to 12 and will create that number of columns.  --}}
-            <div class="resources grid grid-2col">
-              {{!-- "flex-group-center" is also defined in the _grid.scss file
-              and it will add a small amount of padding, a border, and will
-              center all of its child elements content and text. --}}
-            </div>
-          {{!-- The grid classes are defined in scss/global/_grid.scss. To use,
-          use both the "grid" and "grid-Ncol" class where "N" can be any number
-          from 1 to 12 and will create that number of columns.  --}}
-          <div class="grid grid-1col">
-            {{#each data.computed.credentials as |credential idx|}}
-              <div class="flexrow flex-group-center">
-                <label class="resource-label">{{credential.name}}</label>
-                <input type="text" value="{{credential.data.value}}"/>
-              </div>
-            {{/each}}
-          </div>
         </div>
     </header>
 
     {{!-- Sheet Tab Navigation --}}
     <nav class="sheet-tabs tabs" data-group="primary">
+        <a class="item" data-tab="credentials">Credentials</a>
         <a class="item" data-tab="description">Description</a>
-        <a class="item" data-tab="items">Items</a>
+        <a class="item" data-tab="investigative">Investigative</a>
+        <a class="item" data-tab="general">General</a>
+        <a class="item" data-tab="gear">Gear</a>
+        <a class="item" data-tab="extra">Extra</a>
+        <a class="item" data-tab="all">All</a>
     </nav>
 
     {{!-- Sheet Body --}}
     <section class="sheet-body">
+
+        {{!-- Credentials Tab --}}
+        <div class="tab credentials" data-group="primary" data-tab="credentials">
+            <ol class="items-list">
+                <li class="item flexrow item-header">
+                    <div class="item-name">Credential</div>
+                </li>
+                {{#each data.computed.credentials as |credential idx|}}
+                <li class="item flexrow" data-item-id="{{credential._id}}">
+                    <h4 class="item-name">{{credential.name}}</h4>
+                    <input type="text" value="{{credential.data.value}}"/>
+                </li>
+                {{/each}}
+            </ol>
+        </div>
 
         {{!-- Biography Tab --}}
         <div class="tab biography" data-group="primary" data-tab="description">
             {{editor content=data.biography target="data.biography" button=true owner=owner editable=editable}}
         </div>
 
+        <div class="tab investigative" data-group="primary" data-tab="investigative">
+            <ol class="items-list">
+                <li class="item flexrow item-header">
+                    <div class="item-image"></div>
+                    <div class="item-name">Name</div>
+                </li>
+                {{#each actor.data.computed.investigativeAbilities as |item id|}}
+                <li class="item flexrow" data-item-id="{{item._id}}">
+                    <h4 class="item-name">{{item.name}}</h4>
+                </li>
+                {{/each}}
+            </ol>
+        </div>
+
+        <div class="tab general" data-group="primary" data-tab="general">
+            {{editor content=data.biography target="data.biography" button=true owner=owner editable=editable}}
+        </div>
+        <div class="tab gear" data-group="primary" data-tab="gear">
+            {{editor content=data.biography target="data.biography" button=true owner=owner editable=editable}}
+        </div>
+        <div class="tab extra" data-group="primary" data-tab="extra">
+            {{editor content=data.biography target="data.biography" button=true owner=owner editable=editable}}
+        </div>
+
         {{!-- Owned Items Tab --}}
-        <div class="tab items" data-group="primary" data-tab="items">
+        <div class="tab all" data-group="primary" data-tab="all">
             <ol class="items-list">
                 <li class="item flexrow item-header">
                   <div class="item-image"></div>

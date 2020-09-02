@@ -7,7 +7,7 @@ export class GumshoeActorSheet extends ActorSheet {
       classes: ["gumshoe", "sheet", "actor"],
       width: 600,
       height: 600,
-      tabs: [{ navSelector: ".sheet-tabs", contentSelector: ".sheet-body", initial: "description" }]
+      tabs: [{ navSelector: ".sheet-tabs", contentSelector: ".sheet-body", initial: "credentials" }]
     });
   }
 
