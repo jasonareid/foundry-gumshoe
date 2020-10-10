@@ -42,8 +42,7 @@
       "value": ""
     },
     "investigativeAbility": {
-      "templates": ["base", "ability"],
-      "sampleSpends": ""
+      "templates": ["base", "ability"]
     },
     "generalAbility": {
       "templates": ["base", "ability"],

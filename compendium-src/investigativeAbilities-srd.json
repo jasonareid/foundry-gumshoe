@@ -3,13 +3,15 @@
   "entries": [
     {
       "name": "Archaeology",
-      "description": "<p>You excavate and study the structures and artifacts of historical cultures and civilizations.</p><p>>You can:</p><ul><li>tell how long something has been buried</li><li>identify artifacts by culture and usage</li><li>distinguish real artifacts from fakes</li><li>navigate inside ruins and catacombs</li><li>describe the customs of ancient or historical cultures</li><li>spot well-disguised graves and underground hiding places</li></ul>",
-      "min": 0,
-      "max": 100,
-      "boostable": false,
-      "boosted": false,
-      "sampleSpends": "",
-      "sheetGroup": 0
+      "description": "<p>You excavate and study the structures and artifacts of historical cultures and civilizations.</p><p>You can:</p><ul><li>tell how long something has been buried</li><li>identify artifacts by culture and usage</li><li>distinguish real artifacts from fakes</li><li>navigate inside ruins and catacombs</li><li>describe the customs of ancient or historical cultures</li><li>spot well-disguised graves and underground hiding places</li></ul>"
+    },
+    {
+      "name": "Astronomy",
+      "description": "<p>You study celestial objects, including the stars, planets. You can:</p><ul><li>decipher astrological texts</li><li>plot the movement of constellations</li><li>study and debunk UFO reports</li></ul>"
+    },
+    {
+      "name": "Authority",
+      "description": "<p>You know how to present yourself as the person in charge, whether that's a CEO, a government official, a military commander, or a police officer. You speak the lingo of soldiers and law enforcement authorities, and you know how to make people feel confident and relaxed in your presence. You can:</p><ul><li>command the attention of people who need problems solved</li><li>impersonate a law enforcement officer</li><li>coolly ply cops and soldiers for confidential information</li><li>fit in smoothly in any sort of military organization, with people assuming you're a soldier or an officer</li><li>get excused for minor infractions</li></ul>"
     }
   ]
 }
